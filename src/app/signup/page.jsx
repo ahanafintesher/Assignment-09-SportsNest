@@ -3,6 +3,7 @@ import { Card } from "@heroui/react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react";
+import { FcGoogle } from "react-icons/fc";
 
 import {
   Button,
@@ -128,8 +129,8 @@ const SignUpPage = () => {
           >
             <Label>Password</Label>
 
-            <div className="relative w-full">
-              <Input placeholder="Enter your password" />
+            <div className="relative ">
+              <Input className={'w-full'} placeholder="Enter your password" />
 
               <button
                 type="button"
@@ -160,10 +161,11 @@ const SignUpPage = () => {
           {/* Google Login */}
           <Button
             type="button"
-            variant="bordered"
+            variant="outline"
             className="w-full rounded-none"
             onClick={handleGoogleLogin}
           >
+            <FcGoogle />
             Continue with Google
           </Button>
 
