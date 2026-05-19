@@ -10,7 +10,7 @@ const publicLinks = [
 
 const privateLinks = [
   { label: "My Bookings", href: "/my-bookings" },
-  { label: "Add Facility", href: "/add-facility" },
+  { label: "Add Facility", href: "/add-facilities" },
   { label: "Manage My Facilities", href: "/manage-facilities" },
 ];
 
