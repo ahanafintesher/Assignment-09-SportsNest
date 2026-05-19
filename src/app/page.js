@@ -1,12 +1,19 @@
-import Image from "next/image";
-import Banner from "./components/navbar/banner/Banner";
-import FeaturedFacilities from "./components/featured/FeaturedFacilities";
+
+
+import TopPicks from "@/components/toppicks/TopPicks";
+;
+
+import Banner from "@/components/banner/Banner";
+import WhyChooseUs from "@/components/whyChooseUs/WhyChooseUs";
+import FeaturedSection from "@/components/featured/FeaturedSection";
 
 export default function Home() {
   return (
   <div>
       <Banner></Banner>
-      <FeaturedFacilities></FeaturedFacilities>
+      <FeaturedSection></FeaturedSection>
+      <TopPicks></TopPicks>
+      <WhyChooseUs></WhyChooseUs>
   </div>
   );
 }

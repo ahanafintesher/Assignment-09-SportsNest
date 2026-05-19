@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 
-const SPORTS = ["Football", "Badminton", "Swimming", "Tennis", "Cricket", "Basketball"];
+const SPORTS = ["Football", "Badminton", "Carrom Table", "Tennis", "Cricket", "Table Tennis"];
 
 export default function Banner() {
   const [currentSport, setCurrentSport] = useState(0);
@@ -124,7 +124,8 @@ export default function Banner() {
             >
               Explore Facilities
             </Button>
-            <Button
+            <Link href={'/signup'}>
+                <Button
               as={Link}
               href="/register"
               size="lg"
@@ -133,6 +134,7 @@ export default function Banner() {
             >
               Create Account
             </Button>
+            </Link>
           </div>
 
           {/* Stats row */}

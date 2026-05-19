@@ -130,14 +130,14 @@ const SignUpPage = () => {
             <Label>Password</Label>
 
             <div className="relative ">
-              <Input className={'w-full'} placeholder="Enter your password" />
+              <Input className={"w-full"} placeholder="Enter your password" />
 
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-10"
               >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
 
@@ -156,6 +156,12 @@ const SignUpPage = () => {
             >
               Register
             </Button>
+          </div>
+
+          <div className="flex items-center gap-4 my-1">
+            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="text-sm text-gray-500 font-medium">OR</span>
+            <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
           {/* Google Login */}

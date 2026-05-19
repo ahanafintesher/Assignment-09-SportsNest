@@ -119,9 +119,10 @@ const LoginPage = () => {
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-10"
               >
                 {showPassword ? (
-                  <EyeOff size={18} />
+                 <Eye size={18} />
                 ) : (
-                  <Eye size={18} />
+                     <EyeOff size={18} />
+                  
                 )}
               </button>
             </div>
@@ -144,11 +145,17 @@ const LoginPage = () => {
             </Button>
           </div>
 
+           <div className="flex items-center gap-4 my-1">
+            <div className="flex-1 h-px bg-gray-300"></div>
+            <span className="text-sm text-gray-500 font-medium">OR</span>
+            <div className="flex-1 h-px bg-gray-300"></div>
+          </div>
+
           {/* Google Login */}
           <Button
             type="button"
-            variant="bordered"
-            className="w-full rounded-none"
+            variant="outline"
+            className="w-full  rounded-none"
             onClick={handleGoogleLogin}
           >
             <FcGoogle size={20} />

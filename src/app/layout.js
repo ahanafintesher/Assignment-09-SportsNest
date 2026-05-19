@@ -3,9 +3,11 @@ dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/navbar/footer/Footer";
+
+
 import { Toaster } from "react-hot-toast";
+import Footer from '@/components/footer/Footer';
+import Navbar from '@/components/navbar/Navbar';
 
 
 const geistSans = Geist({
@@ -33,7 +35,7 @@ export default function RootLayout({ children }) {
        
           <Navbar></Navbar>
           {children}
-          <Footer></Footer>
+         <Footer></Footer>
            <Toaster position="top-right" reverseOrder={false} />
         
       </body>

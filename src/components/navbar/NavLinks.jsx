@@ -3,15 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinks = [
+const publicLinks = [
   { label: "Home", href: "/" },
   { label: "All Facilities", href: "/facilities" },
+];
+
+const privateLinks = [
   { label: "My Bookings", href: "/my-bookings" },
   { label: "Add Facility", href: "/add-facility" },
   { label: "Manage My Facilities", href: "/manage-facilities" },
 ];
 
-export default function NavLinks({ onClose }) {
+// All links for desktop nav
+const allLinks = [...publicLinks, ...privateLinks];
+
+export default function NavLinks({ onClose, isLoggedIn }) {
   const pathname = usePathname();
 
   const isActive = (href) => pathname === href;
@@ -20,7 +26,7 @@ export default function NavLinks({ onClose }) {
   if (!onClose) {
     return (
       <nav className="hidden md:flex items-center gap-1">
-        {navLinks.map((link) => (
+        {allLinks.map((link) => (
           <Link
             key={link.href}
             href={link.href}
@@ -38,9 +44,13 @@ export default function NavLinks({ onClose }) {
   }
 
   // ===== MOBILE =====
+  // When logged in → show only public links here.
+  // Private links are rendered below the user card in Navbar.jsx.
+  const mobileLinks = isLoggedIn ? publicLinks : allLinks;
+
   return (
     <div className="flex flex-col gap-1">
-      {navLinks.map((link) => (
+      {mobileLinks.map((link) => (
         <Link
           key={link.href}
           href={link.href}
