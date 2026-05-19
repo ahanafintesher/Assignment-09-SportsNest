@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const publicLinks = [
   { label: "Home", href: "/" },
-  { label: "All Facilities", href: "/facilities" },
+  { label: "All Facilities", href: "/all-facilities" },
 ];
 
 const privateLinks = [
