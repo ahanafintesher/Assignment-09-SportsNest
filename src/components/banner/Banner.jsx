@@ -116,18 +116,18 @@ export default function Banner() {
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4 items-center">
+            <Link href={'/all-facilities'}>
             <Button
-              as={Link}
-              href="/facilities"
+             
               size="lg"
               className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold px-8 h-12 text-base rounded-xl shadow-lg shadow-emerald-500/25 transition-all hover:shadow-emerald-500/40 hover:-translate-y-0.5"
             >
               Explore Facilities
             </Button>
+            </Link>
             <Link href={'/signup'}>
                 <Button
-              as={Link}
-              href="/register"
+              
               size="lg"
               variant="bordered"
               className="border-white/20 text-white/70 hover:text-white hover:border-white/40 font-semibold px-8 h-12 text-base rounded-xl transition-all"

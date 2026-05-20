@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import AllFacilityCard from "./FacilitiesCard";
-
 
 const SPORT_TYPES = [
   "All",
@@ -14,30 +13,83 @@ const SPORT_TYPES = [
   "Carrom",
 ];
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function AllFacilitiesSection() {
   const [facilities, setFacilities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [activeType, setActiveType] = useState("All");
 
-  // Fetch facilities from backend with search + filter
+  // ✅ Fix 1: Debounce — 400ms পর search পাঠাও
   useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search), 400);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // ✅ Fix 2: Fetch function আলাদা করা হয়েছে যাতে যেকোনো জায়গা থেকে call করা যায়
+  const fetchFacilities = useCallback(() => {
+    let cancelled = false;
+
     setLoading(true);
+    setError(false);
 
-  
+    const typeParam = activeType === "All" ? "" : activeType;
 
-    fetch(`http://localhost:5000/facilities/?search=${search}&type=${activeType}`)
+    fetch(
+      `${API_BASE}/facilities/?search=${encodeURIComponent(debouncedSearch)}&type=${encodeURIComponent(typeParam)}`
+    )
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
       })
       .then((data) => {
-        setFacilities(data);
+        if (!cancelled) setFacilities(data);
       })
-      .catch(() => setError(true))
-      .finally(() => setLoading(false));
-  }, [search, activeType]);
+      .catch(() => {
+        if (!cancelled) setError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, [debouncedSearch, activeType]);
+
+  // ✅ Fix 3: search/filter বদলালে fetch করো
+  useEffect(() => {
+    const cancel = fetchFacilities();
+    return cancel;
+  }, [fetchFacilities]);
+
+  // ✅ Fix 4: Back button দিয়ে ফিরে আসলে refetch করো
+  // Browser cache থেকে page দেখালে visibilitychange বা focus fire করে
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        fetchFacilities();
+      }
+    };
+
+    const handleFocus = () => {
+      fetchFacilities();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [fetchFacilities]);
+
+  const handleClearFilters = () => {
+    setSearch("");
+    setActiveType("All");
+  };
 
   return (
     <section className="min-h-screen bg-gray-50 py-16">
@@ -112,10 +164,21 @@ export default function AllFacilitiesSection() {
           </div>
         )}
 
-        {/* Error */}
+        {/* ✅ Fix 4: Error — Retry button যোগ করা হয়েছে */}
         {!loading && error && (
-          <div className="text-center py-20 text-red-500">
-            Failed to load facilities
+          <div className="text-center py-20">
+            <p className="text-red-500 text-lg font-semibold">
+              Failed to load facilities
+            </p>
+            <p className="text-gray-400 text-sm mt-1">
+              Something went wrong. Please try again.
+            </p>
+            <button
+              onClick={() => setDebouncedSearch((prev) => prev + "")}
+              className="mt-4 px-5 py-2 bg-emerald-500 text-white rounded-xl text-sm font-medium hover:bg-emerald-600 transition-all"
+            >
+              Retry
+            </button>
           </div>
         )}
 
@@ -125,13 +188,12 @@ export default function AllFacilitiesSection() {
             <p className="text-lg font-semibold text-gray-700">
               No facilities found
             </p>
-
+            <p className="text-gray-400 text-sm mt-1">
+              Try a different name or sport type.
+            </p>
             <button
-              onClick={() => {
-                setSearch("");
-                setActiveType("All");
-              }}
-              className="mt-4 text-emerald-600 hover:underline"
+              onClick={handleClearFilters}
+              className="mt-4 text-emerald-600 hover:underline text-sm"
             >
               Clear Filters
             </button>

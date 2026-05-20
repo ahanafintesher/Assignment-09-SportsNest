@@ -114,12 +114,14 @@ export default function AllFacilityCard({ facility }) {
       </Card.Content>
 
       <Card.Footer className="px-5 pb-5 pt-0">
-        <Button
+       <Link href={`all-facilities/${_id}`}>
+             <Button
          
           className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl transition-colors"
         >
           Book Now
         </Button>
+       </Link>
       </Card.Footer>
     </Card>
   );
