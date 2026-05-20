@@ -115,8 +115,7 @@ export default function AllFacilityCard({ facility }) {
 
       <Card.Footer className="px-5 pb-5 pt-0">
         <Button
-          as={Link}
-          href={`/facility/${_id}`}
+         
           className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-xl transition-colors"
         >
           Book Now

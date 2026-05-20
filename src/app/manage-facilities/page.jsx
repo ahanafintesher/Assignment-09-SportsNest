@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { UpdateModal } from "./UpdateModal";
+import { DeleteModal } from "./DeleteModal";
 
 export default function ManageFacilitiesPage() {
   const [facilities, setFacilities] = useState([]);
@@ -84,12 +85,7 @@ export default function ManageFacilitiesPage() {
                 <td className="px-6 py-5 flex items-center gap-3">
                  <UpdateModal key={facility.id} facility={facility} ></UpdateModal>
 
-                  <button
-                    className="bg-red-100 text-red-500 px-4 py-1.5 rounded-md text-sm hover:bg-red-200 transition"
-                    onClick={() => handleDelete(facility._id)}
-                  >
-                    Delete
-                  </button>
+                  <DeleteModal key={facility.id} facility={facility}></DeleteModal>
                 </td>
               </tr>
             ))}

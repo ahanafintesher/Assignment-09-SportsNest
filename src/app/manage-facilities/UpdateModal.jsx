@@ -2,6 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { Pencil } from "@gravity-ui/icons";
+import toast from "react-hot-toast";
 import {
   Button,
   Select,
@@ -36,23 +37,44 @@ export function UpdateModal({facility}) {
     const {name,facility_type, booking_count,location,price_per_hour,capacity,description,_id} =facility
   const { data: session } = authClient.useSession();
 
-   const onSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const facilities = Object.fromEntries(formData.entries());
-    facilities.available_slots = formData.getAll("available_slots");
-    console.log(facilities);
+  
 
-    const res = await fetch(`http://localhost:5000/facilities/${_id}`, {
+
+
+const onSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  const facilities = Object.fromEntries(formData.entries());
+
+  facilities.available_slots = formData.getAll("available_slots");
+
+  try {
+    const promise = fetch(`http://localhost:5000/facilities/${_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(facilities),
     });
-    const data = await res.json()
-    console.log(data)
-  };
+
+    toast.promise(promise, {
+      loading: "Updating facility...",
+      success: "Facility updated successfully!",
+      error: "Failed to update facility",
+    });
+
+    const res = await promise;
+    const data = await res.json();
+
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong");
+  }
+};
 
   return (
     <Modal>
