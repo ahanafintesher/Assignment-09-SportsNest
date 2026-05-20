@@ -13,9 +13,13 @@ import {
   TextField,
 } from "@heroui/react";
 
+
+
 const HOURS = [1, 2, 3, 4, 5, 6];
 
 const DetailsPage = ({ params }) => {
+  
+
   const { data: session } = authClient.useSession();
   const [facility, setFacility] = useState(null);
   const [hours, setHours] = useState("");
@@ -24,7 +28,15 @@ const DetailsPage = ({ params }) => {
   useEffect(() => {
     const fetchFacility = async () => {
       const { id } = await params;
-      const res = await fetch(`http://localhost:5000/facilities/${id}`);
+      
+      const {data:tokenData} = await authClient.token()
+      console.log(tokenData)
+      
+      const res = await fetch(`http://localhost:5000/facilities/${id}`,{
+       headers: {
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+      });
       const data = await res.json();
       setFacility(data);
     };
@@ -42,14 +54,17 @@ const DetailsPage = ({ params }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+   
     const formData = new FormData(e.currentTarget);
     const booking = Object.fromEntries(formData.entries());
     booking.total_price = totalPrice;
     console.log(booking);
-
+     const {data:tokenData} = await authClient.token()
     const res = await fetch("http://localhost:5000/bookings", {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json",
+         authorization: `Bearer ${tokenData?.token}`,
+       },
       body: JSON.stringify(booking),
     });
     const data = await res.json();

@@ -83,9 +83,9 @@ export default function ManageFacilitiesPage() {
                 </td>
 
                 <td className="px-6 py-5 flex items-center gap-3">
-                 <UpdateModal key={facility.id} facility={facility} ></UpdateModal>
+                 <UpdateModal key={facility._id} facility={facility} ></UpdateModal>
 
-                  <DeleteModal key={facility.id} facility={facility}></DeleteModal>
+                  <DeleteModal key={facility._id} facility={facility}></DeleteModal>
                 </td>
               </tr>
             ))}

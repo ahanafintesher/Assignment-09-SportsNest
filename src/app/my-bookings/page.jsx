@@ -1,25 +1,35 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DeleteBooking } from "./DeleteBooking";
+import { authClient } from "@/lib/auth-client";
 
 export default function MyBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/bookings")
-      .then((res) => res.json())
-      .then((data) => {
-        setBookings(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
+useEffect(() => {
+  const fetchBookings = async () => {
+    const {data:tokenData} = await authClient.token()
+          console.log(tokenData)
+    try {
+      const res = await fetch("http://localhost:5000/bookings",{
+         headers: {
+          authorization: `Bearer ${tokenData?.token}`,
+        },
       });
-  }, []);
+      const data = await res.json();
+      setBookings(data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
 
-  // Status badge color helper
+  fetchBookings();
+}, []);
+
   const getStatusStyle = (status) => {
     switch (status?.toLowerCase()) {
       case "confirmed":
@@ -54,59 +64,56 @@ export default function MyBookingsPage() {
         </span>
       </div>
 
-      {/* Empty State */}
-      {bookings.length === 0 && (
-        <div className="text-center py-16 bg-white border border-gray-200 rounded-xl shadow-sm">
-          <p className="text-gray-400 text-base">No bookings found</p>
-        </div>
-      )}
-
       {/* ── MOBILE: Card Layout ── */}
       <div className="flex flex-col gap-4 md:hidden">
-        {bookings.map((booking) => (
-          <div
-            key={booking._id}
-            className="bg-white border border-gray-200 rounded-xl shadow-sm p-5"
-          >
-            <div className="flex items-start justify-between gap-2 mb-4">
-              <h2 className="text-base font-semibold text-gray-800 leading-tight">
-                {booking.facility_name}
-              </h2>
-              <span className="shrink-0 bg-blue-100 text-blue-600 text-xs px-2.5 py-1 rounded-full whitespace-nowrap">
-                {booking.booking_date}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Time Slot</p>
-                <p className="text-gray-700 font-medium">{booking.time_slot}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Hours</p>
-                <p className="text-gray-700 font-medium">{booking.hours} hr</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Total Price</p>
-                <p className="text-gray-800 font-bold">৳{booking.total_price}</p>
-              </div>
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Status</p>
-                <span
-                  className={`inline-block text-xs px-2.5 py-1 rounded-full font-medium capitalize ${getStatusStyle(booking.status)}`}
-                >
-                  {booking.status}
+        {bookings.length === 0 ? (
+          <div className="text-center py-16 bg-white border border-gray-200 rounded-xl shadow-sm">
+            <p className="text-gray-400 text-base">No bookings found</p>
+          </div>
+        ) : (
+          bookings.map((booking) => (
+            <div
+              key={booking._id}
+              className="bg-white border border-gray-200 rounded-xl shadow-sm p-5"
+            >
+              <div className="flex items-start justify-between gap-2 mb-4">
+                <h2 className="text-base font-semibold text-gray-800 leading-tight">
+                  {booking.facility_name}
+                </h2>
+                <span className="shrink-0 bg-blue-100 text-blue-600 text-xs px-2.5 py-1 rounded-full whitespace-nowrap">
+                  {booking.booking_date}
                 </span>
               </div>
-            </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-100 flex gap-3">
-              <button className="flex-1 text-center text-sm text-red-500 border border-red-200 hover:bg-red-50 rounded-lg py-2 transition font-medium">
-                Cancel
-              </button>
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Time Slot</p>
+                  <p className="text-gray-700 font-medium">{booking.time_slot}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Hours</p>
+                  <p className="text-gray-700 font-medium">{booking.hours} hr</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Total Price</p>
+                  <p className="text-gray-800 font-bold">৳{booking.total_price}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Status</p>
+                  <span
+                    className={`inline-block text-xs px-2.5 py-1 rounded-full font-medium capitalize ${getStatusStyle(booking.status)}`}
+                  >
+                    {booking.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-gray-100 flex gap-3">
+                <DeleteBooking  key={booking._id} booking={booking}></DeleteBooking>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
       {/* ── DESKTOP: Table Layout ── */}
@@ -125,48 +132,58 @@ export default function MyBookingsPage() {
           </thead>
 
           <tbody>
-            {bookings.map((booking) => (
-              <tr
-                key={booking._id}
-                className="border-t border-gray-100 hover:bg-gray-50 transition"
-              >
-                <td className="px-6 py-5 text-gray-800 font-medium">
-                  {booking.facility_name}
-                </td>
-
-                <td className="px-6 py-5">
-                  <span className="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full whitespace-nowrap">
-                    {booking.booking_date}
-                  </span>
-                </td>
-
-                <td className="px-6 py-5 text-gray-600 whitespace-nowrap">
-                  {booking.time_slot}
-                </td>
-
-                <td className="px-6 py-5 text-gray-600">
-                  {booking.hours} hr
-                </td>
-
-                <td className="px-6 py-5 text-gray-800 font-semibold">
-                  ৳{booking.total_price}
-                </td>
-
-                <td className="px-6 py-5">
-                  <span
-                    className={`text-xs px-3 py-1 rounded-full font-medium capitalize ${getStatusStyle(booking.status)}`}
-                  >
-                    {booking.status}
-                  </span>
-                </td>
-
-                <td className="px-6 py-5">
-                  <button className="text-red-500 hover:text-red-700 border border-red-200 hover:bg-red-50 text-xs font-medium px-3 py-1.5 rounded-lg transition">
-                    Cancel
-                  </button>
+            {bookings.length === 0 ? (
+              // ✅ Empty state এখন tbody-র ভেতরে — header সবসময় উপরে থাকবে
+              <tr>
+                <td
+                  colSpan={7}
+                  className="text-center py-16 text-gray-400 text-base"
+                >
+                  No bookings found
                 </td>
               </tr>
-            ))}
+            ) : (
+              bookings.map((booking) => (
+                <tr
+                  key={booking._id}
+                  className="border-t border-gray-100 hover:bg-gray-50 transition"
+                >
+                  <td className="px-6 py-5 text-gray-800 font-medium">
+                    {booking.facility_name}
+                  </td>
+
+                  <td className="px-6 py-5">
+                    <span className="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                      {booking.booking_date}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-600 whitespace-nowrap">
+                    {booking.time_slot}
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-600">
+                    {booking.hours} hr
+                  </td>
+
+                  <td className="px-6 py-5 text-gray-800 font-semibold">
+                    ৳{booking.total_price}
+                  </td>
+
+                  <td className="px-6 py-5">
+                    <span
+                      className={`text-xs px-3 py-1 rounded-full font-medium capitalize ${getStatusStyle(booking.status)}`}
+                    >
+                      {booking.status}
+                    </span>
+                  </td>
+
+                  <td className="px-6 py-5">
+                    <DeleteBooking key={booking._id} booking={booking} />
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
