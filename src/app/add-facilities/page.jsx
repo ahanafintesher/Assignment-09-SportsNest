@@ -14,7 +14,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import React from "react";
 
-const page = () => {
+const AddFacilitiesPage = () => {
   const { data: session } = authClient.useSession();
 
   const onSubmit = async (e) => {
@@ -238,4 +238,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AddFacilitiesPage;

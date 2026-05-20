@@ -128,7 +128,7 @@ export default function Navbar() {
                       </Link>
 
                       <Link
-                        href="/add-facility"
+                        href="/add-facilities"
                         onClick={() => setDropOpen(false)}
                         className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm text-gray-700 transition-colors hover:bg-gray-100"
                       >
@@ -225,7 +225,7 @@ export default function Navbar() {
               {/* Private links — only here, not in NavLinks */}
               <div className="mt-1 flex flex-col gap-0.5">
                 <Link
-                  href="/my-bookings"
+                  href={"/my-bookings"}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-green-600"
                 >
@@ -233,7 +233,7 @@ export default function Navbar() {
                 </Link>
 
                 <Link
-                  href="/add-facility"
+                  href={"/add-facilities"}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-green-600"
                 >
@@ -241,7 +241,7 @@ export default function Navbar() {
                 </Link>
 
                 <Link
-                  href="/manage-facilities"
+                  href={"/manage-facilities"}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-green-600"
                 >
