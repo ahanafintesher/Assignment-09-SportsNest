@@ -67,7 +67,11 @@ const onSubmit = async (e) => {
 };
   return (
     <div>
+      
       <Card>
+        <h1 className="text-xl sm:text-3xl font-bold text-gray-800 ">
+          Add Facilities
+        </h1>
         <form className="p-10 space-y-8" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Facility Name */}

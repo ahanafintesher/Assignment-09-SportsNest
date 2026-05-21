@@ -38,20 +38,20 @@ export default function ManageFacilitiesPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 sm:py-10">
       {/* Top Section */}
-      <div className="flex items-center justify-between mb-6 sm:mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 sm:mb-8">
         <h1 className="text-xl sm:text-3xl font-bold text-gray-800">
           Manage My Facilities
         </h1>
 
-        <Link href="/add-facility">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2 rounded-md text-xs sm:text-sm font-medium transition">
+        <Link href="/add-facilities">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-5 py-2 rounded-md text-xs sm:text-sm font-medium transition whitespace-nowrap">
             + Add New
           </button>
         </Link>
       </div>
 
-      {/* Desktop Table — hidden on mobile */}
-      <div className="hidden sm:block overflow-x-auto border border-gray-200 rounded-lg shadow-sm bg-white">
+      {/* Desktop Table — hidden below 1024px */}
+      <div className="hidden lg:block overflow-x-auto border border-gray-200 rounded-lg shadow-sm bg-white">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
             <tr>
@@ -64,41 +64,43 @@ export default function ManageFacilitiesPage() {
           </thead>
 
           <tbody>
-            {facilities.map((facility) => (
-              <tr
-                key={facility._id}
-                className="border-t border-gray-100 hover:bg-gray-50 transition"
-              >
-                <td className="px-6 py-5 text-gray-700 font-medium">
-                  {facility.name}
-                </td>
-                <td className="px-6 py-5">
-                  <span className="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full">
-                    {facility.facility_type}
-                  </span>
-                </td>
-                <td className="px-6 py-5 text-gray-600">{facility.location}</td>
-                <td className="px-6 py-5 text-gray-700 font-medium">
-                  ৳{facility.price_per_hour}
-                </td>
-                <td className="px-6 py-5 flex items-center gap-3">
-                  <UpdateModal key={facility._id} facility={facility} />
-                  <DeleteModal key={facility._id} facility={facility} />
+            {facilities.length === 0 ? (
+              <tr>
+                <td colSpan={5} className="text-center py-10 text-gray-500">
+                  No facilities found
                 </td>
               </tr>
-            ))}
+            ) : (
+              facilities.map((facility) => (
+                <tr
+                  key={facility._id}
+                  className="border-t border-gray-100 hover:bg-gray-50 transition"
+                >
+                  <td className="px-6 py-5 text-gray-700 font-medium">
+                    {facility.name}
+                  </td>
+                  <td className="px-6 py-5">
+                    <span className="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full">
+                      {facility.facility_type}
+                    </span>
+                  </td>
+                  <td className="px-6 py-5 text-gray-600">{facility.location}</td>
+                  <td className="px-6 py-5 text-gray-700 font-medium">
+                    ৳{facility.price_per_hour}
+                  </td>
+                  <td className="px-6 py-5 flex items-center gap-3">
+                    <UpdateModal key={facility._id} facility={facility} />
+                    <DeleteModal key={facility._id} facility={facility} />
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
-
-        {facilities.length === 0 && (
-          <div className="text-center py-10 text-gray-500">
-            No facilities found
-          </div>
-        )}
       </div>
 
-      {/* Mobile Card Layout — shown only on mobile */}
-      <div className="sm:hidden flex flex-col gap-4">
+      {/* Mobile + Tablet Card Layout — shown below 1024px */}
+      <div className="lg:hidden flex flex-col gap-4">
         {facilities.length === 0 ? (
           <div className="text-center py-10 text-gray-500">
             No facilities found

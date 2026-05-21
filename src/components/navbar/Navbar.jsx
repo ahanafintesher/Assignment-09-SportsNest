@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
@@ -10,9 +11,9 @@ import { authClient } from "@/lib/auth-client";
 import NavLinks from "./NavLinks";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);     // mobile menu
+  const [isOpen, setIsOpen] = useState(false); // mobile menu
   const [dropOpen, setDropOpen] = useState(false); // desktop dropdown
-
+  const router = useRouter();
   const dropdownRef = useRef(null);
 
   // ✅ Better Auth Session
@@ -35,13 +36,14 @@ export default function Navbar() {
     await authClient.signOut();
     setIsOpen(false);
     setDropOpen(false);
+    router.push("/");
+    router.refresh();
   };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-
           {/* ===== LOGO ===== */}
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="rounded-lg bg-green-600 p-1.5">
@@ -58,23 +60,22 @@ export default function Navbar() {
           {/* ===== DESKTOP RIGHT SIDE ===== */}
           <div className="hidden items-center gap-2 md:flex">
             {user ? (
-
               /* ── CUSTOM DROPDOWN ── */
               <div className="relative" ref={dropdownRef}>
-
                 {/* TRIGGER: Avatar + Name */}
                 <button
                   onClick={() => setDropOpen((p) => !p)}
                   className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition-all hover:bg-gray-100"
                 >
-                  <Avatar
-                    src={user.image || undefined}
-                    name={user.name || "User"}
-                    size="sm"
-                    color="success"
-                    showFallback
-                    className="transition-transform hover:scale-105"
-                  />
+                  <Avatar>
+                    <Avatar.Image
+                      alt={user.name || "User"}
+                      src={user.image || undefined}
+                    />
+                    <Avatar.Fallback>
+                      {(user.name ?? "U").charAt(0).toUpperCase()}
+                    </Avatar.Fallback>
+                  </Avatar>
                   <span className="max-w-[120px] truncate text-sm font-semibold text-gray-800">
                     {user.name}
                   </span>
@@ -88,23 +89,28 @@ export default function Navbar() {
                     stroke="currentColor"
                     strokeWidth={2}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
                   </svg>
                 </button>
 
                 {/* DROPDOWN PANEL */}
                 {dropOpen && (
                   <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-56 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
-
                     {/* User info header */}
                     <div className="flex items-center gap-3 bg-gray-50 px-4 py-3">
-                      <Avatar
-                        src={user.image || undefined}
-                        name={user.name || "User"}
-                        size="sm"
-                        color="success"
-                        showFallback
-                      />
+                      <Avatar>
+                    <Avatar.Image
+                      alt={user.name || "User"}
+                      src={user.image || undefined}
+                    />
+                    <Avatar.Fallback>
+                      {(user.name ?? "U").charAt(0).toUpperCase()}
+                    </Avatar.Fallback>
+                  </Avatar>
                       <div className="min-w-0">
                         <p className="truncate text-sm font-semibold text-gray-800">
                           {user.name}
@@ -158,7 +164,6 @@ export default function Navbar() {
                   </div>
                 )}
               </div>
-
             ) : (
               <>
                 <Link
@@ -198,7 +203,6 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col gap-1 border-t border-gray-100 bg-white px-4 py-4">
-
           {/* Public links (+ private links when logged out) */}
           <NavLinks onClose={() => setIsOpen(false)} isLoggedIn={!!user} />
 
@@ -207,13 +211,15 @@ export default function Navbar() {
             <>
               {/* User info card */}
               <div className="mt-3 flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3">
-                <Avatar
-                  src={user.image || undefined}
-                  name={user.name || "User"}
-                  size="sm"
-                  color="success"
-                  showFallback
-                />
+                <Avatar>
+                    <Avatar.Image
+                      alt={user.name || "User"}
+                      src={user.image || undefined}
+                    />
+                    <Avatar.Fallback>
+                      {(user.name ?? "U").charAt(0).toUpperCase()}
+                    </Avatar.Fallback>
+                  </Avatar>
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-gray-800">
                     {user.name}

@@ -49,7 +49,7 @@ const SignUpPage = () => {
 
     if (data) {
       toast.success("Registration successful");
-      router.push("/login");
+      router.push("/");
     }
 
     setLoading(false);

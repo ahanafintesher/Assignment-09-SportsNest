@@ -9,27 +9,27 @@ export default function MyBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const fetchBookings = async () => {
-    const {data:tokenData} = await authClient.token()
-          console.log(tokenData)
-    try {
-      const res = await fetch("https://sportsnest-server.vercel.app/bookings",{
-         headers: {
-          authorization: `Bearer ${tokenData?.token}`,
-        },
-      });
-      const data = await res.json();
-      setBookings(data);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const { data: tokenData } = await authClient.token();
+      console.log(tokenData);
+      try {
+        const res = await fetch("https://sportsnest-server.vercel.app/bookings", {
+          headers: {
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+        });
+        const data = await res.json();
+        setBookings(data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
 
-  fetchBookings();
-}, []);
+    fetchBookings();
+  }, []);
 
   const getStatusStyle = (status) => {
     switch (status?.toLowerCase()) {
@@ -45,9 +45,7 @@ useEffect(() => {
   };
 
   if (loading) {
-    return (
-      <LoadingSpinner></LoadingSpinner>
-    );
+    return <LoadingSpinner />;
   }
 
   return (
@@ -63,8 +61,8 @@ useEffect(() => {
         </span>
       </div>
 
-      {/* ── MOBILE: Card Layout ── */}
-      <div className="flex flex-col gap-4 md:hidden">
+      {/* ── MOBILE + TABLET: Card Layout (up to 1023px) ── */}
+      <div className="flex flex-col gap-4 lg:hidden">
         {bookings.length === 0 ? (
           <div className="text-center py-16 bg-white border border-gray-200 rounded-xl shadow-sm">
             <p className="text-gray-400 text-base">No bookings found</p>
@@ -108,15 +106,15 @@ useEffect(() => {
               </div>
 
               <div className="mt-4 pt-4 border-t border-gray-100 flex gap-3">
-                <DeleteBooking  key={booking._id} booking={booking}></DeleteBooking>
+                <DeleteBooking key={booking._id} booking={booking} />
               </div>
             </div>
           ))
         )}
       </div>
 
-      {/* ── DESKTOP: Table Layout ── */}
-      <div className="hidden md:block overflow-x-auto border border-gray-200 rounded-xl shadow-sm bg-white">
+      {/* ── DESKTOP: Table Layout (1024px+) ── */}
+      <div className="hidden lg:block overflow-x-auto border border-gray-200 rounded-xl shadow-sm bg-white">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wider">
             <tr>
@@ -132,7 +130,6 @@ useEffect(() => {
 
           <tbody>
             {bookings.length === 0 ? (
-              // ✅ Empty state এখন tbody-র ভেতরে — header সবসময় উপরে থাকবে
               <tr>
                 <td
                   colSpan={7}

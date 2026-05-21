@@ -1,75 +1,62 @@
 "use client";
-   import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
-import {AlertDialog, Button} from "@heroui/react";
+import { AlertDialog, Button } from "@heroui/react";
 
 export function DeleteBooking({ booking }) {
-    const { name, _id } = booking
+  const { name, _id } = booking;
 
+  const handleDelete = async () => {
+    const toastId = toast.loading("Deleting booking...");
 
+    try {
+      const { data: tokenData } = await authClient.token();
 
-const handleDelete = async () => {
-  const toastId = toast.loading("Deleting booking...");
+      const res = await fetch(
+        `https://sportsnest-server.vercel.app/bookings/${_id}`, // ✅ base URL যোগ করুন
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+        }
+      );
 
-  try {
-    const { data: tokenData } = await authClient.token();
+      const data = await res.json();
 
-    const res = await fetch(
-      `/bookings/${_id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${tokenData?.token}`,
-        },
+      if (res.ok) {
+        toast.success("Booking cancelled successfully!", { id: toastId });
+      } else {
+        toast.error(data?.message || "Failed to cancel booking", { id: toastId });
       }
-    );
-
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success("Booking deleted successfully!", {
-        id: toastId,
-      });
-    } else {
-      toast.error(data?.message || "Failed to delete booking", {
-        id: toastId,
-      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", { id: toastId });
     }
-
-    console.log(data);
-  } catch (error) {
-    console.log(error);
-
-    toast.error("Something went wrong", {
-      id: toastId,
-    });
-  }
-};
+  };
 
   return (
     <AlertDialog>
-      <Button variant="danger">Delete</Button>
+      <Button slot="trigger" variant="danger">Cancel</Button> 
       <AlertDialog.Backdrop>
         <AlertDialog.Container placement="center">
           <AlertDialog.Dialog className="sm:max-w-[400px]">
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>
               <AlertDialog.Icon status="danger" />
-              <AlertDialog.Heading>Delete this booking permanently?</AlertDialog.Heading>
+              <AlertDialog.Heading>Cancel this booking permanently?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
               <p>
-                This will permanently delete <strong>{name}</strong> and all of its
+                This will permanently cancel <strong>{name}</strong> and all of its
                 data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
             <AlertDialog.Footer>
-              <Button slot="close" variant="tertiary">
-                Cancel
-              </Button>
+              <Button slot="close" variant="tertiary">Close</Button>
               <Button onClick={handleDelete} slot="close" variant="danger">
-                Delete
+                Cancel
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>
