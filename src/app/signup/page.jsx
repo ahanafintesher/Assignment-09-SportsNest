@@ -27,7 +27,6 @@ const SignUpPage = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     setErrorMessage("");
     setLoading(true);
 
@@ -43,23 +42,19 @@ const SignUpPage = () => {
 
     if (error) {
       setErrorMessage(error.message || "Registration failed");
-
       toast.error(error.message || "Registration failed");
-
       setLoading(false);
       return;
     }
 
     if (data) {
       toast.success("Registration successful");
-
       router.push("/login");
     }
 
     setLoading(false);
   };
 
-  // Google Login
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
       provider: "google",
@@ -68,12 +63,14 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="max-w-7xl py-6 mx-auto flex justify-center">
-      <Card className="p-6">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
+    // ✅ FIX 1: px-4 যোগ করা হয়েছে, w-full দিয়ে mobile-এ full width
+    <div className="w-full px-4 py-6 sm:max-w-7xl sm:mx-auto flex justify-center">
+      {/* ✅ FIX 2: Card-এ w-full ও max-w-md, padding responsive */}
+      <Card className="p-4 sm:p-6 w-full max-w-md">
+        {/* ✅ FIX 3: Form-এ w-96 বাদ দিয়ে w-full */}
+        <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
           <h2 className="text-2xl font-bold text-center">Register</h2>
 
-          {/* Error Message */}
           {errorMessage && (
             <p className="text-sm text-red-500">{errorMessage}</p>
           )}
@@ -112,26 +109,16 @@ const SignUpPage = () => {
             name="password"
             type={showPassword ? "text" : "password"}
             validate={(value) => {
-              if (value.length < 6) {
-                return "Password must be at least 6 characters";
-              }
-
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-
-              if (!/[a-z]/.test(value)) {
-                return "Password must contain at least one lowercase letter";
-              }
-
+              if (value.length < 6) return "Password must be at least 6 characters";
+              if (!/[A-Z]/.test(value)) return "Password must contain at least one uppercase letter";
+              if (!/[a-z]/.test(value)) return "Password must contain at least one lowercase letter";
               return null;
             }}
           >
             <Label>Password</Label>
 
-            <div className="relative ">
-              <Input className={"w-full"} placeholder="Enter your password" />
-
+            <div className="relative">
+              <Input className="w-full" placeholder="Enter your password" />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
@@ -144,7 +131,6 @@ const SignUpPage = () => {
             <Description>
               Must be at least 6 characters with uppercase & lowercase letter
             </Description>
-
             <FieldError />
           </TextField>
 
@@ -164,7 +150,6 @@ const SignUpPage = () => {
             <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
-          {/* Google Login */}
           <Button
             type="button"
             variant="outline"
@@ -175,13 +160,9 @@ const SignUpPage = () => {
             Continue with Google
           </Button>
 
-          {/* Login Link */}
           <p className="text-sm text-center">
             Already have an account?{" "}
-            <Link
-              href="/login"
-              className="text-blue-600 font-medium hover:underline"
-            >
+            <Link href="/login" className="text-blue-600 font-medium hover:underline">
               Login
             </Link>
           </p>

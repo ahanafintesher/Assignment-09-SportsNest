@@ -171,7 +171,7 @@ export default function Navbar() {
                   href="/signup"
                   className="rounded-lg bg-green-600 px-4 py-1.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-700"
                 >
-                  Sign Up
+                  Register
                 </Link>
               </>
             )}
@@ -273,7 +273,7 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className="w-full rounded-xl bg-green-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-700"
               >
-                Sign Up
+                Register
               </Link>
             </div>
           )}
