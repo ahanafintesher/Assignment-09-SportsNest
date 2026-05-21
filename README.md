@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏟️ SportNest
 
-## Getting Started
+**Find & Book Sports Facilities Near You**
 
-First, run the development server:
+> Discover premium sports venues, check real-time availability, and secure your slot — all in one place. No calls, no hassle.
+
+---
+
+## 🌐 Live URL
+
+🔗 [https://sports-nest-ten.vercel.app](https://sports-nest-ten.vercel.app)
+
+---
+
+## 📁 GitHub Repository
+
+🔗 [https://github.com/ahanafintesher/Assignment-09-SportsNest](https://github.com/ahanafintesher/Assignment-09-SportsNest)
+
+---
+
+## 📸 Screenshots
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/913e1aa8-3f50-4383-aff2-3f312f058a08" />
+
+
+---
+
+## 🎯 Purpose
+
+SportNest is a modern sports facility booking platform that allows users to:
+- Browse and discover premium sports venues
+- Check real-time availability of courts and fields
+- Book their desired slot instantly — without any phone calls or hassle
+
+---
+
+## ✨ Features
+
+- 🏠 **Home Page** — Engaging landing page with hero section and key stats
+- 🏟️ **All Facilities** — Browse all available sports facilities
+- 📅 **My Bookings** — View and manage your personal bookings
+- ➕ **Add Facility** — Add new sports facilities to the platform
+- ⚙️ **Manage My Facilities** — Edit or remove your listed facilities
+- 🔐 **Authentication** — Secure login/signup with Better Auth
+- 📊 **Stats** — 200+ Facilities, 50K+ Bookings, 15+ Sports, 4.9★ Rating
+
+---
+
+## 📦 NPM Packages Used
+
+### Dependencies
+
+| Package | Version | Purpose |
+|---|---|---|
+| `next` | 16.2.6 | React framework for production |
+| `react` | 19.2.4 | UI library |
+| `react-dom` | 19.2.4 | React DOM rendering |
+| `better-auth` | ^1.6.11 | Authentication library |
+| `@better-auth/mongo-adapter` | ^1.6.11 | MongoDB adapter for Better Auth |
+| `@heroui/react` | ^3.0.5 | UI component library |
+| `@heroui/styles` | ^3.0.5 | HeroUI styles |
+| `@heroui/system` | ^2.4.28 | HeroUI system utilities |
+| `mongodb` | ^7.2.0 | MongoDB database driver |
+| `framer-motion` | ^12.38.0 | Animations and transitions |
+| `lucide-react` | ^1.16.0 | Icon library |
+| `react-hot-toast` | ^2.6.0 | Toast notifications |
+| `react-icons` | ^5.6.0 | Popular icon packs |
+
+### Dev Dependencies
+
+| Package | Version | Purpose |
+|---|---|---|
+| `tailwindcss` | ^4 | Utility-first CSS framework |
+| `@tailwindcss/postcss` | ^4 | Tailwind PostCSS plugin |
+| `eslint` | ^9 | Code linting |
+| `eslint-config-next` | 16.2.6 | Next.js ESLint config |
+| `@gravity-ui/icons` | ^2.18.0 | Gravity UI icons |
+| `babel-plugin-react-compiler` | 1.0.0 | React compiler Babel plugin |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18+)
+- MongoDB database
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/ahanafintesher/Assignment-09-SportsNest.git
+
+# Navigate to the project directory
+cd Assignment-09-SportsNest
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Built With
 
-## Learn More
+- **Next.js** — Full-stack React framework
+- **HeroUI** — Modern UI components
+- **Tailwind CSS** — Styling
+- **Better Auth** — Authentication
+- **MongoDB** — Database
+- **Framer Motion** — Animations
+- **Vercel** — Deployment
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 👤 Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Ahanaf Intesher**
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> ⭐ If you like this project, give it a star on GitHub!
