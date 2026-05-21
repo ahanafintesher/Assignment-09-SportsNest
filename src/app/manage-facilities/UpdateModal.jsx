@@ -31,50 +31,47 @@ const facilityTypes = [
   "Swimming",
   "Basketball",
   "Tennis",
+  "Gym",
 ];
 
-export function UpdateModal({facility}) {
-    const {name,facility_type, booking_count,location,price_per_hour,capacity,description,_id} =facility
+export function UpdateModal({ facility }) {
+  const { name, facility_type, booking_count, location, price_per_hour, capacity, description, _id } = facility;
   const { data: session } = authClient.useSession();
 
-  
+  const onSubmit = async (e) => {
+    e.preventDefault();
 
+    const formData = new FormData(e.currentTarget);
+    const facilities = Object.fromEntries(formData.entries());
+    facilities.available_slots = formData.getAll("available_slots");
 
+    const { data: tokenData } = await authClient.token();
+    console.log(tokenData);
 
-const onSubmit = async (e) => {
-  e.preventDefault();
+    try {
+      const promise = fetch(`https://sportsnest-server.vercel.app/facilities/${_id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+        body: JSON.stringify(facilities),
+      });
 
-  const formData = new FormData(e.currentTarget);
+      toast.promise(promise, {
+        loading: "Updating facility...",
+        success: "Facility updated successfully!",
+        error: "Failed to update facility",
+      });
 
-  const facilities = Object.fromEntries(formData.entries());
-
-  facilities.available_slots = formData.getAll("available_slots");
-
-  try {
-    const promise = fetch(`http://localhost:5000/facilities/${_id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(facilities),
-    });
-
-    toast.promise(promise, {
-      loading: "Updating facility...",
-      success: "Facility updated successfully!",
-      error: "Failed to update facility",
-    });
-
-    const res = await promise;
-    const data = await res.json();
-
-    console.log(data);
-
-  } catch (error) {
-    console.log(error);
-    toast.error("Something went wrong");
-  }
-};
+      const res = await promise;
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
 
   return (
     <Modal>
@@ -99,12 +96,10 @@ const onSubmit = async (e) => {
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-green-100 text-green-700">
                   <Pencil className="size-5" />
                 </div>
-
                 <div>
                   <Modal.Heading className="text-2xl font-bold">
                     Edit Facility
                   </Modal.Heading>
-
                   <p className="text-sm text-default-500 mt-1">
                     Update your sports facility information.
                   </p>
@@ -118,18 +113,16 @@ const onSubmit = async (e) => {
                 variant="default"
                 className="rounded-none bg-transparent shadow-none"
               >
-                <form className="space-y-8 p-8" onSubmit={onSubmit}>
+                <form id="update-facility-form" className="space-y-8 p-8" onSubmit={onSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Facility Name */}
                     <div className="md:col-span-2">
                       <TextField defaultValue={name} name="name" isRequired>
                         <Label>Facility Name</Label>
-
                         <Input
                           placeholder="Mirpur Indoor Stadium"
                           className="rounded-2xl"
                         />
-
                         <FieldError />
                       </TextField>
                     </div>
@@ -137,27 +130,21 @@ const onSubmit = async (e) => {
                     {/* Facility Type */}
                     <div>
                       <Select
-                      defaultValue={facility_type}
+                        defaultValue={facility_type}
                         name="facility_type"
                         isRequired
                         className="w-full"
                         placeholder="Select facility type"
                       >
                         <Label>Facility Type</Label>
-
                         <Select.Trigger className="rounded-2xl">
                           <Select.Value />
                           <Select.Indicator />
                         </Select.Trigger>
-
                         <Select.Popover>
                           <ListBox>
                             {facilityTypes.map((type) => (
-                              <ListBox.Item
-                                key={type}
-                                id={type}
-                                textValue={type}
-                              >
+                              <ListBox.Item key={type} id={type} textValue={type}>
                                 {type}
                                 <ListBox.ItemIndicator />
                               </ListBox.Item>
@@ -168,62 +155,53 @@ const onSubmit = async (e) => {
                     </div>
 
                     {/* Image URL */}
-                    <TextField  name="image" isRequired>
+                    <TextField name="image" isRequired>
                       <Label>Image URL</Label>
-
                       <Input
                         type="url"
                         placeholder="https://i.ibb.co/example.jpg"
                         className="rounded-2xl"
                       />
-
                       <FieldError />
                     </TextField>
 
                     {/* Location */}
                     <TextField defaultValue={location} name="location" isRequired>
                       <Label>Location</Label>
-
                       <Input
                         placeholder="Dhaka, Bangladesh"
                         className="rounded-2xl"
                       />
-
                       <FieldError />
                     </TextField>
 
                     {/* Price */}
                     <TextField defaultValue={price_per_hour} name="price_per_hour" type="number" isRequired>
                       <Label>Price Per Hour (৳)</Label>
-
                       <Input
                         type="number"
                         placeholder="1500"
                         className="rounded-2xl"
                       />
-
                       <FieldError />
                     </TextField>
 
                     {/* Capacity */}
                     <TextField defaultValue={capacity} name="capacity" type="number" isRequired>
                       <Label>Capacity</Label>
-
                       <Input
                         type="number"
                         placeholder="22"
                         className="rounded-2xl"
                       />
-
                       <FieldError />
                     </TextField>
 
                     {/* Slots */}
                     <div className="md:col-span-2">
-                      <Label  className="mb-4 block text-sm font-medium">
+                      <Label className="mb-4 block text-sm font-medium">
                         Available Time Slots
                       </Label>
-
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {slots.map((slot) => (
                           <label
@@ -236,7 +214,6 @@ const onSubmit = async (e) => {
                               value={slot}
                               className="accent-green-600"
                             />
-
                             <span className="text-sm">{slot}</span>
                           </label>
                         ))}
@@ -247,12 +224,10 @@ const onSubmit = async (e) => {
                     <div className="md:col-span-2">
                       <TextField defaultValue={description} name="description" isRequired>
                         <Label>Description</Label>
-
                         <TextArea
                           placeholder="Write facility details..."
                           className="rounded-3xl min-h-[140px]"
                         />
-
                         <FieldError />
                       </TextField>
                     </div>
@@ -260,13 +235,11 @@ const onSubmit = async (e) => {
                     {/* Booking Count */}
                     <TextField defaultValue={booking_count} name="booking_count">
                       <Label>Booking Count</Label>
-
                       <Input
                         type="number"
                         placeholder="0"
                         className="rounded-2xl"
                       />
-
                       <FieldError />
                     </TextField>
 
@@ -274,25 +247,15 @@ const onSubmit = async (e) => {
                     <div className="md:col-span-2">
                       <TextField name="owner_email">
                         <Label>Owner Email</Label>
-
                         <Input
                           value={session?.user?.email || ""}
                           isReadOnly
                           className="rounded-2xl bg-default-100"
                         />
-
                         <FieldError />
                       </TextField>
                     </div>
                   </div>
-
-                  {/* Submit Button */}
-                  <Button
-                    type="submit"
-                    className="h-12 w-full rounded-2xl bg-green-600 text-white text-base font-semibold hover:bg-green-700"
-                  >
-                    Save Changes
-                  </Button>
                 </form>
               </Surface>
             </Modal.Body>
@@ -309,7 +272,8 @@ const onSubmit = async (e) => {
                 </Button>
 
                 <Button
-                  slot="close"
+                  type="submit"
+                  form="update-facility-form"
                   className="rounded-xl bg-green-600 text-white hover:bg-green-700"
                 >
                   Update Facility

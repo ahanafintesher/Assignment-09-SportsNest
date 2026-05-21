@@ -68,14 +68,7 @@ export default function TopPicks() {
             </p>
           </div>
 
-          <Button
-            as={Link}
-            href="/facilities"
-            variant="bordered"
-            className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white rounded-xl transition-all"
-          >
-            Explore All →
-          </Button>
+          
         </div>
 
         {/* Cards */}
@@ -163,13 +156,14 @@ export default function TopPicks() {
 
               {/* Footer */}
               <Card.Footer className="px-6 pb-6 pt-0">
-                <Button
-                  as={Link}
-                  href={`/facility/${facility.id}`}
+                <Link href={'/all-facilities'}>
+                  <Button
+                 
                   className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold rounded-2xl h-11"
                 >
                   Book Facility
                 </Button>
+                </Link>
               </Card.Footer>
 
             </Card>

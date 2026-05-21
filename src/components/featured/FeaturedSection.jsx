@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import Link from "next/link";
 import FeaturedCard from "./FeaturedCard";
 
@@ -11,7 +11,7 @@ export default function FeaturedSection() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/featured-facilities")
+    fetch("https://sportsnest-server.vercel.app/featured-facilities")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch");
         return res.json();
@@ -24,7 +24,6 @@ export default function FeaturedSection() {
   return (
     <section className="py-24 bg-[#050a0e]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         {/* ── Section header ── */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
           <div>
@@ -34,11 +33,13 @@ export default function FeaturedSection() {
             <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight">
               Featured
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                {" "}Facilities
+                {" "}
+                Facilities
               </span>
             </h2>
             <p className="mt-3 text-white/40 text-base max-w-md">
-              Hand-picked venues ready for your next game. Book instantly, play today.
+              Hand-picked venues ready for your next game. Book instantly, play
+              today.
             </p>
           </div>
           <Button
@@ -53,13 +54,8 @@ export default function FeaturedSection() {
 
         {/* ── Loading state ── */}
         {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="h-72 rounded-2xl bg-white/5 animate-pulse border border-white/5"
-              />
-            ))}
+          <div className="flex justify-center items-center h-72">
+            <Spinner size="lg" color="success" />
           </div>
         )}
 
@@ -67,7 +63,9 @@ export default function FeaturedSection() {
         {!loading && error && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <span className="text-4xl mb-4">⚠️</span>
-            <p className="text-white/50 text-base">Could not load facilities. Please try again later.</p>
+            <p className="text-white/50 text-base">
+              Could not load facilities. Please try again later.
+            </p>
           </div>
         )}
 
@@ -75,7 +73,9 @@ export default function FeaturedSection() {
         {!loading && !error && facilities.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <span className="text-4xl mb-4">🏟️</span>
-            <p className="text-white/50 text-base">No facilities available yet. Check back soon!</p>
+            <p className="text-white/50 text-base">
+              No facilities available yet. Check back soon!
+            </p>
           </div>
         )}
 
@@ -87,7 +87,6 @@ export default function FeaturedSection() {
             ))}
           </div>
         )}
-
       </div>
     </section>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { DeleteBooking } from "./DeleteBooking";
 import { authClient } from "@/lib/auth-client";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 export default function MyBookingsPage() {
   const [bookings, setBookings] = useState([]);
@@ -13,7 +14,7 @@ useEffect(() => {
     const {data:tokenData} = await authClient.token()
           console.log(tokenData)
     try {
-      const res = await fetch("http://localhost:5000/bookings",{
+      const res = await fetch("https://sportsnest-server.vercel.app/bookings",{
          headers: {
           authorization: `Bearer ${tokenData?.token}`,
         },
@@ -45,9 +46,7 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-[60vh]">
-        <p className="text-lg font-medium text-gray-500">Loading...</p>
-      </div>
+      <LoadingSpinner></LoadingSpinner>
     );
   }
 

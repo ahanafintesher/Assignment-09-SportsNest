@@ -1,3 +1,5 @@
+import { Button } from "@heroui/react";
+import Link from "next/link";
 import {
   MdVerified,
   MdAccessTime,
@@ -133,12 +135,11 @@ export default function WhyChooseUs() {
                 every day.
               </p>
             </div>
-            <a
-              href="/facilities"
-              className="mt-2 px-6 py-2.5 bg-white text-green-600 font-bold text-sm rounded-xl hover:bg-green-50 transition-colors"
-            >
-              Explore Now
-            </a>
+            <Link href={'/all-facilities'}>
+              <Button>
+                Explore Now
+              </Button>
+            </Link>
           </div>
         </div>
 

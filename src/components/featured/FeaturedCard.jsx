@@ -110,14 +110,15 @@ export default function FeaturedCard({ facility }) {
       </Card.Content>
 
       <Card.Footer className="px-5 pb-5 pt-0">
-        <Button
-          as={Link}
-          href={`/facility/${_id}`}
+        <Link href={`/all-facilities/${_id}`}>
+            <Button
+          
           className="w-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold rounded-xl hover:bg-emerald-500/20 transition-colors"
           variant="flat"
         >
           Book Now
         </Button>
+        </Link>
       </Card.Footer>
     </Card>
   );

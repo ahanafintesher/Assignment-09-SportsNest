@@ -1,25 +1,58 @@
 "use client";
-
+import { toast } from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 import {AlertDialog, Button} from "@heroui/react";
 
 export function DeleteModal({ facility }) {
     const { name, _id } = facility
 
-    const handleDelete = async() =>{
-        const res = await fetch(`http://localhost:5000/facilities/${_id}`,{
-            method:'DELETE',
-            headers:{
-                'content-type': 'application/json'
-            }
-        })
-        const data = await res.json();
-        console.log(data)
+   
+
+const handleDelete = async () => {
+  const toastId = toast.loading("Deleting facility...");
+
+  try {
+    const { data: tokenData } = await authClient.token();
+
+    console.log(tokenData);
+
+    const res = await fetch(
+      `https://sportsnest-server.vercel.app/facilities/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Facility deleted successfully!", {
+        id: toastId,
+      });
+    } else {
+      toast.error(data?.message || "Failed to delete facility", {
+        id: toastId,
+      });
     }
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+
+    toast.error("Something went wrong", {
+      id: toastId,
+    });
+  }
+};
   return (
     <AlertDialog>
       <Button variant="danger">Delete Facility</Button>
       <AlertDialog.Backdrop>
-        <AlertDialog.Container>
+        <AlertDialog.Container placement="center">
           <AlertDialog.Dialog className="sm:max-w-[400px]">
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>

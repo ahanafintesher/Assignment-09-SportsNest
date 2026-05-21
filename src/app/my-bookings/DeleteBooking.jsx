@@ -1,28 +1,57 @@
 "use client";
-
+   import { toast } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import {AlertDialog, Button} from "@heroui/react";
 
 export function DeleteBooking({ booking }) {
     const { name, _id } = booking
 
-    const handleDelete = async() =>{
-         const {data:tokenData} = await authClient.token()
-        const res = await fetch(`http://localhost:5000/bookings/${_id}`,{
-            method:'DELETE',
-            headers:{
-                'content-type': 'application/json',
-                authorization: `Bearer ${tokenData?.token}`,
-            }
-        })
-        const data = await res.json();
-        console.log(data)
+
+
+const handleDelete = async () => {
+  const toastId = toast.loading("Deleting booking...");
+
+  try {
+    const { data: tokenData } = await authClient.token();
+
+    const res = await fetch(
+      `/bookings/${_id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Booking deleted successfully!", {
+        id: toastId,
+      });
+    } else {
+      toast.error(data?.message || "Failed to delete booking", {
+        id: toastId,
+      });
     }
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+
+    toast.error("Something went wrong", {
+      id: toastId,
+    });
+  }
+};
+
   return (
     <AlertDialog>
       <Button variant="danger">Delete</Button>
       <AlertDialog.Backdrop>
-        <AlertDialog.Container>
+        <AlertDialog.Container placement="center">
           <AlertDialog.Dialog className="sm:max-w-[400px]">
             <AlertDialog.CloseTrigger />
             <AlertDialog.Header>

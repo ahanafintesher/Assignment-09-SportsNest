@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import AllFacilityCard from "./FacilitiesCard";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const SPORT_TYPES = [
   "All",
@@ -13,7 +14,7 @@ const SPORT_TYPES = [
   "Carrom",
 ];
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://sportsnest-server.vercel.app";
 
 export default function AllFacilitiesSection() {
   const [facilities, setFacilities] = useState([]);
@@ -159,9 +160,7 @@ export default function AllFacilitiesSection() {
 
         {/* Loading */}
         {loading && (
-          <div className="text-center py-20 text-gray-400">
-            Loading facilities...
-          </div>
+          <LoadingSpinner></LoadingSpinner>
         )}
 
         {/* ✅ Fix 4: Error — Retry button যোগ করা হয়েছে */}

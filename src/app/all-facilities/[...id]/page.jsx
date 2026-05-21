@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -12,6 +13,7 @@ import {
   Select,
   TextField,
 } from "@heroui/react";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 
 
@@ -32,7 +34,7 @@ const DetailsPage = ({ params }) => {
       const {data:tokenData} = await authClient.token()
       console.log(tokenData)
       
-      const res = await fetch(`http://localhost:5000/facilities/${id}`,{
+      const res = await fetch(`https://sportsnest-server.vercel.app/facilities/${id}`,{
        headers: {
           authorization: `Bearer ${tokenData?.token}`,
         },
@@ -52,29 +54,60 @@ const DetailsPage = ({ params }) => {
     }
   };
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-   
+
+
+const onSubmit = async (e) => {
+  e.preventDefault();
+
+  const toastId = toast.loading("Booking in progress...");
+
+  try {
     const formData = new FormData(e.currentTarget);
+
     const booking = Object.fromEntries(formData.entries());
     booking.total_price = totalPrice;
+
     console.log(booking);
-     const {data:tokenData} = await authClient.token()
-    const res = await fetch("http://localhost:5000/bookings", {
+
+    const { data: tokenData } = await authClient.token();
+
+    const res = await fetch("https://sportsnest-server.vercel.app/bookings", {
       method: "POST",
-      headers: { "content-type": "application/json",
-         authorization: `Bearer ${tokenData?.token}`,
-       },
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
+      },
       body: JSON.stringify(booking),
     });
+
     const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Booking successful!", {
+        id: toastId,
+      });
+
+      e.target.reset();
+    } else {
+      toast.error(data?.message || "Booking failed", {
+        id: toastId,
+      });
+    }
+
     console.log(data);
-  };
+  } catch (error) {
+    console.log(error);
+
+    toast.error("Something went wrong", {
+      id: toastId,
+    });
+  }
+};
 
   if (!facility) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-400 text-sm">Loading...</p>
+        <LoadingSpinner></LoadingSpinner>
       </div>
     );
   }

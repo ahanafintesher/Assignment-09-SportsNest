@@ -13,27 +13,58 @@ import {
 } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const AddFacilitiesPage = () => {
   const { data: session } = authClient.useSession();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
+
+
+const onSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
     const formData = new FormData(e.currentTarget);
+
     const facilities = Object.fromEntries(formData.entries());
     facilities.available_slots = formData.getAll("available_slots");
+
     console.log(facilities);
 
-    const res = await fetch("http://localhost:5000/facilities", {
+    const { data: tokenData } = await authClient.token();
+
+    const toastId = toast.loading("Adding facility...");
+
+    const res = await fetch("https://sportsnest-server.vercel.app/facilities", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${tokenData?.token}`,
       },
       body: JSON.stringify(facilities),
     });
-    const data = await res.json()
-    console.log(data)
-  };
+
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Facility added successfully!", {
+        id: toastId,
+      });
+
+      e.target.reset();
+    } else {
+      toast.error(data?.message || "Failed to add facility", {
+        id: toastId,
+      });
+    }
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+
+    toast.error("Something went wrong");
+  }
+};
   return (
     <div>
       <Card>
