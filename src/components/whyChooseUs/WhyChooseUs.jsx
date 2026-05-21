@@ -61,14 +61,14 @@ export default function WhyChooseUs() {
     <section className="w-full bg-gray-50 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-14">
 
-        {/* ===== HEADER ===== */}
+       
         <div className="flex flex-col items-center text-center gap-4">
-          {/* badge */}
+        
           <span className="px-4 py-1.5 bg-green-100 text-green-600 text-sm font-semibold rounded-full">
             Why SportNest
           </span>
 
-          {/* title */}
+         
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-800 leading-tight">
             Why Choose{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-400">
@@ -76,13 +76,13 @@ export default function WhyChooseUs() {
             </span>
           </h2>
 
-          {/* subtitle */}
+         
           <p className="text-gray-500 text-base sm:text-lg max-w-2xl leading-relaxed">
             We make sports facility booking simple, fast, and reliable. Here is
             what sets SportNest apart from the rest.
           </p>
 
-          {/* divider */}
+        
           <div className="flex items-center gap-2 mt-1">
             <div className="w-10 h-1 bg-green-500 rounded-full" />
             <div className="w-3 h-1 bg-green-300 rounded-full" />
@@ -90,21 +90,21 @@ export default function WhyChooseUs() {
           </div>
         </div>
 
-        {/* ===== CARDS ===== */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <div
               key={index}
               className={`flex flex-col gap-4 p-6 rounded-2xl border ${feature.bg} ${feature.border} hover:shadow-lg transition-all duration-300 group`}
             >
-              {/* icon */}
+             
               <div
                 className={`w-14 h-14 ${feature.iconBg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
               >
                 {feature.icon}
               </div>
 
-              {/* text */}
+              
               <div className="flex flex-col gap-2">
                 <h3 className="text-lg font-bold text-gray-800">
                   {feature.title}
@@ -114,7 +114,7 @@ export default function WhyChooseUs() {
                 </p>
               </div>
 
-              {/* bottom accent */}
+              
               <div className="mt-auto pt-4 border-t border-gray-200">
                 <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                   #{index + 1} Feature
@@ -123,7 +123,7 @@ export default function WhyChooseUs() {
             </div>
           ))}
 
-          {/* ===== EXTRA CARD — CTA ===== */}
+         
           <div className="flex flex-col items-center justify-center gap-4 p-6 rounded-2xl bg-gradient-to-br from-green-600 to-emerald-500 text-white hover:shadow-lg hover:shadow-green-200 transition-all duration-300 sm:col-span-2 lg:col-span-1">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
               <MdFlashOn className="text-3xl text-white" />
@@ -143,7 +143,7 @@ export default function WhyChooseUs() {
           </div>
         </div>
 
-        {/* ===== BOTTOM STATS BAR ===== */}
+        
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
             { number: "500+", label: "Facilities Listed" },

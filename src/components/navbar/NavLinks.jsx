@@ -14,7 +14,7 @@ const privateLinks = [
   { label: "Manage My Facilities", href: "/manage-facilities" },
 ];
 
-// All links for desktop nav
+
 const allLinks = [...publicLinks, ...privateLinks];
 
 export default function NavLinks({ onClose, isLoggedIn }) {
@@ -22,7 +22,7 @@ export default function NavLinks({ onClose, isLoggedIn }) {
 
   const isActive = (href) => pathname === href;
 
-  // ===== DESKTOP =====
+ 
   if (!onClose) {
     return (
       <nav className="hidden md:flex items-center gap-1">
@@ -43,9 +43,9 @@ export default function NavLinks({ onClose, isLoggedIn }) {
     );
   }
 
-  // ===== MOBILE =====
-  // When logged in → show only public links here.
-  // Private links are rendered below the user card in Navbar.jsx.
+ 
+  
+  
   const mobileLinks = isLoggedIn ? publicLinks : allLinks;
 
   return (

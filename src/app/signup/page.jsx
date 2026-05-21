@@ -63,11 +63,11 @@ const SignUpPage = () => {
   };
 
   return (
-    // ✅ FIX 1: px-4 যোগ করা হয়েছে, w-full দিয়ে mobile-এ full width
+   
     <div className="w-full px-4 py-6 sm:max-w-7xl sm:mx-auto flex justify-center">
-      {/* ✅ FIX 2: Card-এ w-full ও max-w-md, padding responsive */}
+     
       <Card className="p-4 sm:p-6 w-full max-w-md">
-        {/* ✅ FIX 3: Form-এ w-96 বাদ দিয়ে w-full */}
+       
         <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
           <h2 className="text-2xl font-bold text-center">Register</h2>
 

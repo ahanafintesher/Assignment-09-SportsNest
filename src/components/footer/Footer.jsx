@@ -64,13 +64,13 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
 
-      {/* ===== MAIN FOOTER ===== */}
+    
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* ===== COL 1 — BRAND ===== */}
+         
           <div className="flex flex-col gap-5">
-            {/* logo */}
+           
             <Link href="/" className="flex items-center gap-2 w-fit">
               <div className="bg-green-600 p-1.5 rounded-lg">
                 <MdSportsSoccer className="text-white text-xl" />
@@ -80,14 +80,14 @@ export default function Footer() {
               </span>
             </Link>
 
-            {/* tagline */}
+           
             <p className="text-sm text-gray-400 leading-relaxed">
               Your one-stop platform for booking sports facilities. Find and
               reserve football turfs, badminton courts, swimming lanes, and
               more — all in one place.
             </p>
 
-            {/* social icons */}
+           
             <div className="flex items-center gap-2 mt-1">
               {socialLinks.map((social) => (
                 <a
@@ -104,7 +104,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ===== COL 2 — QUICK LINKS ===== */}
+        
           <div className="flex flex-col gap-4">
             <h3 className="text-white font-semibold text-base tracking-wide">
               Quick Links
@@ -125,7 +125,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ===== COL 3 — FACILITY TYPES ===== */}
+         
           <div className="flex flex-col gap-4">
             <h3 className="text-white font-semibold text-base tracking-wide">
               Facility Types
@@ -146,7 +146,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ===== COL 4 — CONTACT ===== */}
+         
           <div className="flex flex-col gap-4">
             <h3 className="text-white font-semibold text-base tracking-wide">
               Contact Us
@@ -166,7 +166,7 @@ export default function Footer() {
                 </div>
               </li>
 
-              {/* phone */}
+             
               <li className="flex items-start gap-3">
                 <div className="mt-0.5 w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center shrink-0">
                   <MdPhone className="text-green-500 text-lg" />
@@ -182,7 +182,7 @@ export default function Footer() {
                 </div>
               </li>
 
-              {/* email */}
+             
               <li className="flex items-start gap-3">
                 <div className="mt-0.5 w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center shrink-0">
                   <MdEmail className="text-green-500 text-lg" />
@@ -203,7 +203,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ===== BOTTOM BAR ===== */}
+      
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm text-gray-500 text-center sm:text-left">

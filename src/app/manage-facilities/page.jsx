@@ -50,7 +50,7 @@ export default function ManageFacilitiesPage() {
         </Link>
       </div>
 
-      {/* Desktop Table — hidden below 1024px */}
+     
       <div className="hidden lg:block overflow-x-auto border border-gray-200 rounded-lg shadow-sm bg-white">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-gray-600 uppercase text-xs">
@@ -99,7 +99,7 @@ export default function ManageFacilitiesPage() {
         </table>
       </div>
 
-      {/* Mobile + Tablet Card Layout — shown below 1024px */}
+     
       <div className="lg:hidden flex flex-col gap-4">
         {facilities.length === 0 ? (
           <div className="text-center py-10 text-gray-500">

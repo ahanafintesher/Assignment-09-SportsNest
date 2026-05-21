@@ -75,7 +75,7 @@ export function UpdateModal({ facility }) {
 
   return (
     <Modal>
-      {/* Trigger Button */}
+     
       <Button
         variant="outline"
         className="rounded-xl border border-default-200 hover:bg-default-100"
@@ -84,13 +84,13 @@ export function UpdateModal({ facility }) {
         Edit Facility
       </Button>
 
-      {/* Modal */}
+      
       <Modal.Backdrop className="backdrop-blur-sm bg-black/40">
         <Modal.Container placement="center">
           <Modal.Dialog className="w-full max-w-4xl rounded-3xl overflow-hidden border border-default-200 bg-background shadow-2xl">
             <Modal.CloseTrigger />
 
-            {/* Header */}
+            
             <Modal.Header className="border-b border-default-100 px-8 py-6">
               <div className="flex items-center gap-4">
                 <div className="flex size-12 items-center justify-center rounded-2xl bg-green-100 text-green-700">
@@ -107,7 +107,7 @@ export function UpdateModal({ facility }) {
               </div>
             </Modal.Header>
 
-            {/* Body */}
+            
             <Modal.Body className="max-h-[80vh] overflow-y-auto bg-default-50/40">
               <Surface
                 variant="default"
@@ -115,7 +115,7 @@ export function UpdateModal({ facility }) {
               >
                 <form id="update-facility-form" className="space-y-8 p-8" onSubmit={onSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Facility Name */}
+                    
                     <div className="md:col-span-2">
                       <TextField defaultValue={name} name="name" isRequired>
                         <Label>Facility Name</Label>
@@ -127,7 +127,7 @@ export function UpdateModal({ facility }) {
                       </TextField>
                     </div>
 
-                    {/* Facility Type */}
+                   
                     <div>
                       <Select
                         defaultValue={facility_type}
@@ -154,7 +154,7 @@ export function UpdateModal({ facility }) {
                       </Select>
                     </div>
 
-                    {/* Image URL */}
+                    
                     <TextField name="image" isRequired>
                       <Label>Image URL</Label>
                       <Input
@@ -165,7 +165,7 @@ export function UpdateModal({ facility }) {
                       <FieldError />
                     </TextField>
 
-                    {/* Location */}
+                   
                     <TextField defaultValue={location} name="location" isRequired>
                       <Label>Location</Label>
                       <Input
@@ -175,7 +175,7 @@ export function UpdateModal({ facility }) {
                       <FieldError />
                     </TextField>
 
-                    {/* Price */}
+                    
                     <TextField defaultValue={price_per_hour} name="price_per_hour" type="number" isRequired>
                       <Label>Price Per Hour (৳)</Label>
                       <Input
@@ -186,7 +186,7 @@ export function UpdateModal({ facility }) {
                       <FieldError />
                     </TextField>
 
-                    {/* Capacity */}
+                   
                     <TextField defaultValue={capacity} name="capacity" type="number" isRequired>
                       <Label>Capacity</Label>
                       <Input
@@ -197,7 +197,7 @@ export function UpdateModal({ facility }) {
                       <FieldError />
                     </TextField>
 
-                    {/* Slots */}
+                   
                     <div className="md:col-span-2">
                       <Label className="mb-4 block text-sm font-medium">
                         Available Time Slots
@@ -220,7 +220,7 @@ export function UpdateModal({ facility }) {
                       </div>
                     </div>
 
-                    {/* Description */}
+                    
                     <div className="md:col-span-2">
                       <TextField defaultValue={description} name="description" isRequired>
                         <Label>Description</Label>
@@ -232,7 +232,7 @@ export function UpdateModal({ facility }) {
                       </TextField>
                     </div>
 
-                    {/* Booking Count */}
+                    
                     <TextField defaultValue={booking_count} name="booking_count">
                       <Label>Booking Count</Label>
                       <Input
@@ -243,7 +243,7 @@ export function UpdateModal({ facility }) {
                       <FieldError />
                     </TextField>
 
-                    {/* Owner Email */}
+                   
                     <div className="md:col-span-2">
                       <TextField name="owner_email">
                         <Label>Owner Email</Label>
@@ -260,7 +260,7 @@ export function UpdateModal({ facility }) {
               </Surface>
             </Modal.Body>
 
-            {/* Footer */}
+            
             <Modal.Footer className="border-t border-default-100 px-8 py-5">
               <div className="flex w-full justify-end gap-3">
                 <Button

@@ -40,7 +40,7 @@ export default function AllFacilityCard({ facility }) {
   return (
     <Card className={`bg-white border ${theme.border} rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 group`}>
 
-      {/* ── Cover image ── */}
+     
       <div className="relative h-48 w-full overflow-hidden">
         <Image
           src={coverImage}
@@ -49,15 +49,15 @@ export default function AllFacilityCard({ facility }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-        {/* overlay */}
+        
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-        {/* type badge */}
+       
         <span className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full ${theme.badge} backdrop-blur-sm`}>
           {theme.emoji} {facility_type}
         </span>
 
-        {/* booking count */}
+       
         <span className="absolute top-3 right-3 text-xs font-medium px-2.5 py-1 rounded-full bg-white/80 text-gray-600 backdrop-blur-sm">
           🔖 {booking_count} booked
         </span>
@@ -65,7 +65,7 @@ export default function AllFacilityCard({ facility }) {
 
       <Card.Content className="p-5 flex flex-col gap-3">
 
-        {/* Name & location */}
+       
         <div>
           <h3 className={`text-base font-bold text-gray-900 group-hover:${theme.accent} transition-colors leading-snug`}>
             {name}
@@ -79,10 +79,10 @@ export default function AllFacilityCard({ facility }) {
           </p>
         </div>
 
-        {/* Description */}
+        
         <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{description}</p>
 
-        {/* Price + capacity */}
+        
         <div className="grid grid-cols-2 gap-2">
           <div className="bg-gray-50 rounded-xl p-3 border border-gray-100">
             <p className="text-xs text-gray-400 mb-0.5">Price/hour</p>
@@ -94,7 +94,7 @@ export default function AllFacilityCard({ facility }) {
           </div>
         </div>
 
-        {/* Slots */}
+       
         <div>
           <p className="text-xs text-gray-400 mb-1.5">Available Slots</p>
           <div className="flex flex-wrap gap-1.5">

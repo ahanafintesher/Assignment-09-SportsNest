@@ -39,7 +39,7 @@ export default function FeaturedCard({ facility }) {
   return (
     <Card className={`bg-white/[0.03] border ${theme.border} rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group`}>
 
-      {/* ── Cover image ── */}
+      
       <div className="relative h-44 w-full overflow-hidden">
         <Image
           src={coverImage}
@@ -48,15 +48,15 @@ export default function FeaturedCard({ facility }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-        {/* dark overlay */}
+       
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-        {/* type badge on image */}
+       
         <span className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm ${theme.badge}`}>
           {theme.emoji} {facility_type}
         </span>
 
-        {/* booking count */}
+       
         <span className="absolute top-3 right-3 text-xs font-medium px-2.5 py-1 rounded-full bg-black/40 text-white/70 backdrop-blur-sm">
           🔖 {booking_count} booked
         </span>
@@ -64,7 +64,7 @@ export default function FeaturedCard({ facility }) {
 
       <Card.Content className="p-5 flex flex-col gap-4">
 
-        {/* Name & location */}
+        
         <div>
           <h3 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors leading-snug">
             {name}
@@ -78,7 +78,7 @@ export default function FeaturedCard({ facility }) {
           </p>
         </div>
 
-        {/* Price + capacity */}
+        
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-white/5 rounded-xl p-3">
             <p className="text-xs text-white/30 mb-1">Price/hour</p>
@@ -90,7 +90,7 @@ export default function FeaturedCard({ facility }) {
           </div>
         </div>
 
-        {/* Time slots — show first 3 only */}
+        
         <div>
           <p className="text-xs text-white/30 mb-2">Available Slots</p>
           <div className="flex flex-wrap gap-1.5">

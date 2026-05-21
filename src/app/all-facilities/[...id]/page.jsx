@@ -237,7 +237,7 @@ const onSubmit = async (e) => {
           </div>
         </div>
 
-        {/* Booking Form */}
+       
         <Card>
           <form className="p-8 space-y-6" onSubmit={onSubmit}>
             <h2 className="text-base font-semibold text-gray-800">
@@ -245,7 +245,7 @@ const onSubmit = async (e) => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Facility Name */}
+             
               <div className="md:col-span-2">
                 <TextField name="facility_name" isRequired>
                   <Label>Facility Name</Label>
@@ -258,7 +258,7 @@ const onSubmit = async (e) => {
                 </TextField>
               </div>
 
-              {/* Booking Date */}
+             
               <div className="md:col-span-2">
                 <TextField name="booking_date" type="date" isRequired>
                   <Label>Booking Date</Label>
@@ -267,7 +267,7 @@ const onSubmit = async (e) => {
                 </TextField>
               </div>
 
-              {/* Time Slot */}
+              
               <Select
                 name="time_slot"
                 isRequired
@@ -300,7 +300,7 @@ const onSubmit = async (e) => {
                 </Select.Popover>
               </Select>
 
-              {/* Hours */}
+              
               <Select
                 name="hours"
                 isRequired
@@ -329,7 +329,7 @@ const onSubmit = async (e) => {
                 </Select.Popover>
               </Select>
 
-              {/* Owner Email */}
+             
               <div className="md:col-span-2">
                 <TextField name="owner_email">
                   <Label>Owner Email</Label>
@@ -342,7 +342,7 @@ const onSubmit = async (e) => {
                 </TextField>
               </div>
 
-              {/* Total Price */}
+             
               <div className="md:col-span-2">
                 <TextField name="total_price">
                   <Label>Total Price</Label>

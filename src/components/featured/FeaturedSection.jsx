@@ -52,14 +52,14 @@ export default function FeaturedSection() {
           </Button>
         </div>
 
-        {/* ── Loading state ── */}
+        
         {loading && (
           <div className="flex justify-center items-center h-72">
             <Spinner size="lg" color="success" />
           </div>
         )}
 
-        {/* ── Error state ── */}
+        
         {!loading && error && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <span className="text-4xl mb-4">⚠️</span>
@@ -69,7 +69,7 @@ export default function FeaturedSection() {
           </div>
         )}
 
-        {/* ── Empty state ── */}
+        
         {!loading && !error && facilities.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <span className="text-4xl mb-4">🏟️</span>
@@ -79,7 +79,7 @@ export default function FeaturedSection() {
           </div>
         )}
 
-        {/* ── Cards grid ── */}
+       
         {!loading && !error && facilities.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {facilities.map((facility) => (

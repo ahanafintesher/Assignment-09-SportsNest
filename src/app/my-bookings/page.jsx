@@ -51,7 +51,7 @@ export default function MyBookingsPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
 
-      {/* Header */}
+      
       <div className="flex items-center justify-between mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
           My Bookings
@@ -61,7 +61,7 @@ export default function MyBookingsPage() {
         </span>
       </div>
 
-      {/* ── MOBILE + TABLET: Card Layout (up to 1023px) ── */}
+      
       <div className="flex flex-col gap-4 lg:hidden">
         {bookings.length === 0 ? (
           <div className="text-center py-16 bg-white border border-gray-200 rounded-xl shadow-sm">
@@ -113,7 +113,7 @@ export default function MyBookingsPage() {
         )}
       </div>
 
-      {/* ── DESKTOP: Table Layout (1024px+) ── */}
+     
       <div className="hidden lg:block overflow-x-auto border border-gray-200 rounded-xl shadow-sm bg-white">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-gray-500 uppercase text-xs tracking-wider">

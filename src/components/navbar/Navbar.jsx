@@ -11,16 +11,16 @@ import { authClient } from "@/lib/auth-client";
 import NavLinks from "./NavLinks";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); // mobile menu
-  const [dropOpen, setDropOpen] = useState(false); // desktop dropdown
+  const [isOpen, setIsOpen] = useState(false); 
+  const [dropOpen, setDropOpen] = useState(false);
   const router = useRouter();
   const dropdownRef = useRef(null);
 
-  // ✅ Better Auth Session
+  
   const session = authClient.useSession();
   const user = session.data?.user;
 
-  // ✅ Close dropdown on outside click
+ 
   useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -31,7 +31,7 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // ✅ Logout
+  
   const handleLogout = async () => {
     await authClient.signOut();
     setIsOpen(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* ===== LOGO ===== */}
+          
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="rounded-lg bg-green-600 p-1.5">
               <MdSportsSoccer className="text-xl text-white" />
@@ -54,15 +54,15 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* ===== DESKTOP NAV LINKS ===== */}
+          
           <NavLinks />
 
-          {/* ===== DESKTOP RIGHT SIDE ===== */}
+         
           <div className="hidden items-center gap-2 md:flex">
             {user ? (
-              /* ── CUSTOM DROPDOWN ── */
+              
               <div className="relative" ref={dropdownRef}>
-                {/* TRIGGER: Avatar + Name */}
+               
                 <button
                   onClick={() => setDropOpen((p) => !p)}
                   className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition-all hover:bg-gray-100"
@@ -79,7 +79,7 @@ export default function Navbar() {
                   <span className="max-w-[120px] truncate text-sm font-semibold text-gray-800">
                     {user.name}
                   </span>
-                  {/* caret */}
+                 
                   <svg
                     className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
                       dropOpen ? "rotate-180" : ""
@@ -97,7 +97,7 @@ export default function Navbar() {
                   </svg>
                 </button>
 
-                {/* DROPDOWN PANEL */}
+               
                 {dropOpen && (
                   <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-56 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
                     {/* User info header */}
@@ -123,7 +123,7 @@ export default function Navbar() {
 
                     <div className="border-t border-gray-100" />
 
-                    {/* Menu items */}
+                    
                     <div className="p-1.5">
                       <Link
                         href="/my-bookings"
@@ -152,7 +152,7 @@ export default function Navbar() {
 
                     <div className="border-t border-gray-100" />
 
-                    {/* Logout */}
+                    
                     <div className="p-1.5">
                       <button
                         onClick={handleLogout}
@@ -182,7 +182,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* ===== MOBILE MENU BUTTON ===== */}
+        
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="rounded-lg p-2 text-gray-600 transition-all hover:bg-gray-100 md:hidden"
@@ -196,7 +196,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ===== MOBILE MENU ===== */}
+     
       <div
         className={`overflow-hidden transition-all duration-300 ease-in-out md:hidden ${
           isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
@@ -206,10 +206,10 @@ export default function Navbar() {
           {/* Public links (+ private links when logged out) */}
           <NavLinks onClose={() => setIsOpen(false)} isLoggedIn={!!user} />
 
-          {/* ── LOGGED IN: user card + private links ── */}
+          
           {user && (
             <>
-              {/* User info card */}
+             
               <div className="mt-3 flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3">
                 <Avatar>
                     <Avatar.Image
@@ -228,7 +228,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* Private links — only here, not in NavLinks */}
+             
               <div className="mt-1 flex flex-col gap-0.5">
                 <Link
                   href={"/my-bookings"}
@@ -264,7 +264,7 @@ export default function Navbar() {
             </>
           )}
 
-          {/* ── LOGGED OUT: login + signup ── */}
+         
           {!user && (
             <div className="mt-4 flex flex-col gap-2 px-1">
               <Link

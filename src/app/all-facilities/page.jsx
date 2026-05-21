@@ -24,13 +24,13 @@ export default function AllFacilitiesSection() {
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [activeType, setActiveType] = useState("All");
 
-  // ✅ Fix 1: Debounce — 400ms পর search পাঠাও
+  
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 400);
     return () => clearTimeout(timer);
   }, [search]);
 
-  // ✅ Fix 2: Fetch function আলাদা করা হয়েছে যাতে যেকোনো জায়গা থেকে call করা যায়
+  
   const fetchFacilities = useCallback(() => {
     let cancelled = false;
 
@@ -59,14 +59,13 @@ export default function AllFacilitiesSection() {
     return () => { cancelled = true; };
   }, [debouncedSearch, activeType]);
 
-  // ✅ Fix 3: search/filter বদলালে fetch করো
+  
   useEffect(() => {
     const cancel = fetchFacilities();
     return cancel;
   }, [fetchFacilities]);
 
-  // ✅ Fix 4: Back button দিয়ে ফিরে আসলে refetch করো
-  // Browser cache থেকে page দেখালে visibilitychange বা focus fire করে
+ 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -96,7 +95,7 @@ export default function AllFacilitiesSection() {
     <section className="min-h-screen bg-gray-50 py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
+       
         <div className="mb-10">
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-emerald-600 mb-2">
             Explore
@@ -111,10 +110,10 @@ export default function AllFacilitiesSection() {
           </p>
         </div>
 
-        {/* Search + Filter */}
+       
         <div className="flex flex-col sm:flex-row gap-4 mb-8">
 
-          {/* Search */}
+          
           <div className="relative w-full sm:max-w-sm">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
               🔍
@@ -129,7 +128,7 @@ export default function AllFacilitiesSection() {
             />
           </div>
 
-          {/* Filter Buttons */}
+         
           <div className="flex flex-wrap gap-2">
             {SPORT_TYPES.map((type) => (
               <button
@@ -147,7 +146,7 @@ export default function AllFacilitiesSection() {
           </div>
         </div>
 
-        {/* Result Count */}
+       
         {!loading && !error && (
           <p className="text-sm text-gray-400 mb-6">
             Showing{" "}
@@ -158,12 +157,12 @@ export default function AllFacilitiesSection() {
           </p>
         )}
 
-        {/* Loading */}
+       
         {loading && (
           <LoadingSpinner></LoadingSpinner>
         )}
 
-        {/* ✅ Fix 4: Error — Retry button যোগ করা হয়েছে */}
+       
         {!loading && error && (
           <div className="text-center py-20">
             <p className="text-red-500 text-lg font-semibold">
@@ -181,7 +180,7 @@ export default function AllFacilitiesSection() {
           </div>
         )}
 
-        {/* Empty */}
+        
         {!loading && !error && facilities.length === 0 && (
           <div className="text-center py-20">
             <p className="text-lg font-semibold text-gray-700">
@@ -199,7 +198,7 @@ export default function AllFacilitiesSection() {
           </div>
         )}
 
-        {/* Cards */}
+        
         {!loading && !error && facilities.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {facilities.map((facility) => (

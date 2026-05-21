@@ -74,7 +74,7 @@ const onSubmit = async (e) => {
         </h1>
         <form className="p-10 space-y-8" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Facility Name */}
+           
             <div className="md:col-span-2">
               <TextField name="name" isRequired>
                 <Label>Facility Name</Label>
@@ -86,7 +86,7 @@ const onSubmit = async (e) => {
               </TextField>
             </div>
 
-            {/* Facility Type */}
+            
             <div>
               <Select
                 name="facility_type"
@@ -137,7 +137,7 @@ const onSubmit = async (e) => {
               </Select>
             </div>
 
-            {/* Image Upload */}
+           
             <TextField name="image" isRequired>
               <Label>Image Upload URL</Label>
               <Input
@@ -148,28 +148,28 @@ const onSubmit = async (e) => {
               <FieldError />
             </TextField>
 
-            {/* Location */}
+          
             <TextField name="location" isRequired>
               <Label>Location</Label>
               <Input placeholder="Dhaka, Bangladesh" className="rounded-2xl" />
               <FieldError />
             </TextField>
 
-            {/* Price Per Hour */}
+           
             <TextField name="price_per_hour" type="number" isRequired>
               <Label>Price Per Hour</Label>
               <Input type="number" placeholder="1500" className="rounded-2xl" />
               <FieldError />
             </TextField>
 
-            {/* Capacity */}
+           
             <TextField name="capacity" type="number" isRequired>
               <Label>Capacity</Label>
               <Input type="number" placeholder="22" className="rounded-2xl" />
               <FieldError />
             </TextField>
 
-            {/* Available Time Slots */}
+           
             <div className="md:col-span-2">
               <Label className="mb-3 block">Available Time Slots</Label>
 
@@ -221,7 +221,7 @@ const onSubmit = async (e) => {
               </div>
             </div>
 
-            {/* Description */}
+           
             <div className="md:col-span-2">
               <TextField name="description" isRequired>
                 <Label>Description</Label>
@@ -235,7 +235,7 @@ const onSubmit = async (e) => {
               </TextField>
             </div>
 
-            {/* Booking Count */}
+           
             <TextField name="booking_count">
               <Label>Booking Count</Label>
 
@@ -243,7 +243,7 @@ const onSubmit = async (e) => {
 
               <FieldError />
             </TextField>
-            {/* Owner Email */}
+            
             <div className="md:col-span-2">
               <TextField name="owner_email">
                 <Label>Owner Email</Label>
@@ -259,7 +259,7 @@ const onSubmit = async (e) => {
             </div>
           </div>
 
-          {/* Submit Button */}
+         
           <Button
             type="submit"
             variant="outline"
