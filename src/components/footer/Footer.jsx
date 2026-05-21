@@ -11,9 +11,9 @@ import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
 const quickLinks = [
   { label: "Home", href: "/" },
-  { label: "All Facilities", href: "/facilities" },
+  { label: "All Facilities", href: "/all-facilities" },
   { label: "My Bookings", href: "/my-bookings" },
-  { label: "Add Facility", href: "/add-facility" },
+  { label: "Add Facility", href: "/add-facilities" },
   { label: "Manage My Facilities", href: "/manage-facilities" },
 ];
 

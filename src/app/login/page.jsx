@@ -22,15 +22,12 @@ import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const router = useRouter();
-
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Email Password Login
   const onSubmit = async (e) => {
     e.preventDefault();
-
     setErrorMessage("");
     setLoading(true);
 
@@ -45,63 +42,51 @@ const LoginPage = () => {
 
     if (error) {
       setErrorMessage(error.message || "Login failed");
-
       toast.error(error.message || "Login failed");
-
       setLoading(false);
       return;
     }
 
     if (data) {
       toast.success("Login successful");
-
       router.push("/");
     }
 
     setLoading(false);
   };
 
-  // Google Login
   const handleGoogleLogin = async () => {
     await authClient.signIn.social({
-        provider:"google"
-    })
+      provider: "google",
+    });
   };
 
   return (
-    <div className="max-w-7xl py-6 mx-auto flex justify-center">
-      <Card className="p-6">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
+    <div className="w-full px-4 py-6 sm:max-w-7xl sm:mx-auto flex justify-center">
+      <Card className="p-4 sm:p-6 w-full max-w-md">
+        <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
           <h2 className="text-2xl font-bold text-center">Login</h2>
 
-          {/* Error Message */}
           {errorMessage && (
             <p className="text-sm text-red-500">{errorMessage}</p>
           )}
 
-          {/* Email */}
           <TextField
             isRequired
             name="email"
             type="email"
             validate={(value) => {
-              if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)
-              ) {
+              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
                 return "Please enter a valid email address";
               }
-
               return null;
             }}
           >
             <Label>Email</Label>
-
             <Input placeholder="john@example.com" />
-
             <FieldError />
           </TextField>
 
-          {/* Password */}
           <TextField
             isRequired
             minLength={6}
@@ -110,31 +95,21 @@ const LoginPage = () => {
           >
             <Label>Password</Label>
 
-            <div className="relative ">
-              <Input className={'w-full'} placeholder="Enter your password" />
-
+            <div className="relative">
+              <Input className="w-full" placeholder="Enter your password" />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-10"
               >
-                {showPassword ? (
-                 <Eye size={18} />
-                ) : (
-                     <EyeOff size={18} />
-                  
-                )}
+                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
               </button>
             </div>
 
-            <Description>
-              Enter your account password
-            </Description>
-
+            <Description>Enter your account password</Description>
             <FieldError />
           </TextField>
 
-          {/* Login Button */}
           <div className="flex justify-center gap-2 w-full">
             <Button
               isLoading={loading}
@@ -145,24 +120,22 @@ const LoginPage = () => {
             </Button>
           </div>
 
-           <div className="flex items-center gap-4 my-1">
+          <div className="flex items-center gap-4 my-1">
             <div className="flex-1 h-px bg-gray-300"></div>
             <span className="text-sm text-gray-500 font-medium">OR</span>
             <div className="flex-1 h-px bg-gray-300"></div>
           </div>
 
-          {/* Google Login */}
           <Button
             type="button"
             variant="outline"
-            className="w-full  rounded-none"
+            className="w-full rounded-none"
             onClick={handleGoogleLogin}
           >
             <FcGoogle size={20} />
             Continue with Google
           </Button>
 
-          {/* Register Link */}
           <p className="text-sm text-center">
             Don&apos;t have an account?{" "}
             <Link
