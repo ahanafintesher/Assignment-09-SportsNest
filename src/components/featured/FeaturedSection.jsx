@@ -42,14 +42,7 @@ export default function FeaturedSection() {
               today.
             </p>
           </div>
-          <Button
-            as={Link}
-            href="/facilities"
-            variant="bordered"
-            className="border-white/15 text-white/60 hover:text-white hover:border-white/30 rounded-xl shrink-0"
-          >
-            View All →
-          </Button>
+         
         </div>
 
         
